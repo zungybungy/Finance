@@ -2,7 +2,7 @@
 import pandas as pd
 import numpy as np
 import datetime as dt
-from pandas_datareader import data as pdr
+#from pandas_datareader import data as pdr
 import yfinance as yf
 from sklearn.covariance import GraphicalLassoCV
 import seaborn as sns
@@ -11,7 +11,7 @@ import networkx as nx
 from pylab import rcParams
 
 # Override pandas_datareader with yfinance
-yf.pdr_override()
+#yf.pdr_override()
 
 # Set parameters for data retrieval
 num_years = 10
@@ -33,7 +33,7 @@ etfs = {"EWJ": "Japan", "EWZ": "Brazil", "FXI": "China",
 
 # Retrieve adjusted close prices for ETFs
 symbols = list(etfs.keys())
-etf_data = pdr.get_data_yahoo(symbols, start=start_date, end=end_date)['Adj Close']
+etf_data = yf.download(symbols, start=start_date, end=end_date)['Adj Close']
 
 # Convert prices to log returns
 log_returns = np.log1p(etf_data.pct_change()).dropna()
